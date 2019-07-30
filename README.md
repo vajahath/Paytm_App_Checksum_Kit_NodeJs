@@ -4,7 +4,7 @@ This is a paytm util functions exported as a function returning promise. Basical
 
 This package is because, the original repo is missing maintenance and doesn't have those required functions exported as clean functions.
 
-## usage
+## Usage
 
 ```js
 const { makePaytmUtils } = require(".");
