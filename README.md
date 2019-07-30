@@ -1,10 +1,32 @@
-# Installation Steps
+# paytm-dev-checksum-kit-nodejs-fork
 
-1. Copy the 'paytm' folder, index.js, router.js and server.js into your project directory.
-2. Please set the required parameters in 'paytm/paytm_config.js' file. These parameters will be received after completing the registration process with Paytm.
-3. For the Generate Checksum URL, please use the case for '/generate_checksum' in the router.js file. For example, a generate checksum URL may look like yoursite/generate_checksum
-4. For the Verify Checksum URL, please use the case for '/verify_checksum' in the router.js file. For example, a verify checksum URL may look like yoursite/verify_checksum
+This is a paytm util functions exported as a function returning promise. Basically this is a wrapper around the parent repository's core functions.
 
-# For Offline(Wallet Api) Checksum Utility below are the methods:
-  1. genchecksumbystring : For generating the checksum
-  2. verifychecksumbystring : For verifing the checksum
+This package is because, the original repo is missing maintenance and doesn't have those required functions exported as clean functions.
+
+## usage
+
+```js
+const { makePaytmUtils } = require(".");
+
+const PayTmUtils = makePaytmUtils({ MERCHANT_KEY: "XXXXXXX" });
+
+PayTmUtils.makeCheckSum({
+  MID: "XXXXXXXXX",
+  ORDER_ID: "89374832",
+  TXN_AMOUNT: "200",
+  CHANNEL_ID: "WAP",
+  CALLBACK_URL: "https://merchant.com/callback/",
+  CUST_ID: "42344787",
+  EMAIL: "mi@yopmail.com",
+  MOBILE_NO: "7736600957",
+  WEBSITE: "www.google.com",
+  INDUSTRY_TYPE_ID: "Retail"
+})
+  .then(cs => console.log("checksum:", cs))
+  .catch(err => console.error(err));
+```
+
+## Licence
+
+MIT &copy; [Vajahath Ahmed](https://twitter.com/vajahath7)
