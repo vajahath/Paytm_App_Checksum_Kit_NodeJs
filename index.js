@@ -2,7 +2,7 @@
 
 const paytmChecksum = require("./paytm/checksum");
 
-function genChecksumP(options, MERCHANT_KEY) {
+function _genChecksumP(options, MERCHANT_KEY) {
   return new Promise((resolve, reject) => {
     paytmChecksum.genchecksum(options, MERCHANT_KEY, function(err, checksum) {
       if (err) {
@@ -13,8 +13,20 @@ function genChecksumP(options, MERCHANT_KEY) {
   });
 }
 
+function _verifyChecksum({ params, MERCHANT_KEY, paytmChecksumHash }) {
+  const isValid = paytmChecksum.verifychecksum(
+    params,
+    MERCHANT_KEY,
+    paytmChecksumHash
+  );
+  return isValid;
+}
+
 function makePaytmUtils({ MERCHANT_KEY }) {
   return {
+    verifyChecksum({ params, paytmChecksumHash }) {
+      return _verifyChecksum({ params, MERCHANT_KEY, paytmChecksumHash });
+    },
     makeCheckSum({
       MID,
       ORDER_ID,
@@ -27,7 +39,7 @@ function makePaytmUtils({ MERCHANT_KEY }) {
       EMAIL,
       MOBILE_NO
     }) {
-      return genChecksumP(
+      return _genChecksumP(
         {
           MID,
           ORDER_ID,
