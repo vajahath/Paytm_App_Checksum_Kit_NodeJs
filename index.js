@@ -27,33 +27,8 @@ function makePaytmUtils({ MERCHANT_KEY }) {
     verifyChecksum({ params, paytmChecksumHash }) {
       return _verifyChecksum({ params, MERCHANT_KEY, paytmChecksumHash });
     },
-    makeCheckSum({
-      MID,
-      ORDER_ID,
-      CUST_ID,
-      INDUSTRY_TYPE_ID,
-      CHANNEL_ID,
-      TXN_AMOUNT,
-      WEBSITE,
-      CALLBACK_URL,
-      EMAIL,
-      MOBILE_NO
-    }) {
-      return _genChecksumP(
-        {
-          MID,
-          ORDER_ID,
-          CUST_ID,
-          INDUSTRY_TYPE_ID,
-          CHANNEL_ID,
-          TXN_AMOUNT,
-          WEBSITE,
-          CALLBACK_URL,
-          EMAIL,
-          MOBILE_NO
-        },
-        MERCHANT_KEY
-      );
+    makeCheckSum(options) {
+      return _genChecksumP(options, MERCHANT_KEY);
     }
   };
 }
